@@ -39,6 +39,13 @@ module id(
          input wire mem_reg_we_i,
          input wire[`AluSelBus] ex_alu_sel_i,
 
+         input wire uart_switch_i,
+         input wire music_switch_i,
+         input wire is_play_end_i,
+         input wire uart_finish_i,
+
+         output wire uart_ce,
+         output wire music_ce,
 
          // regfile 读端口的使能信号
          output  reg    reg_re1_o,
@@ -70,6 +77,11 @@ assign  inst_o = inst_i;
 
 // 记录指令中的立即数
 reg[`RegBus]    imm;
+reg reg_uart_ce = 0;
+reg reg_music_ce = 0;
+
+assign uart_ce = reg_uart_ce;
+assign music_ce = reg_music_ce;
 
 // 指令解析
 wire[5:0] op = inst_i[31:26];
@@ -80,6 +92,7 @@ wire[4:0] opnd_rd = inst_i[15:11];      // R
 wire[4:0] opnd_sa = inst_i[10:6];       // R
 wire[5:0] opnd_func = inst_i[5:0];      // R
 wire[25:0] opnd_addr = inst_i[25:0];    // J
+wire[3:0] IO_op = inst_i[3:0];
 
 // 指令译码
 always @(*)
@@ -266,6 +279,63 @@ always @(*)
           branch_flag_o <= `True;
           branch_target_o <= {pc_i[31:28], opnd_addr, 2'b00};
         end
+      `OP_IO:
+        begin
+          alu_sel_o <= `AluSelNop;
+          reg_we_o <= `WriteDisable;
+          reg_re1_o <= `ReadDisable;
+          reg_re2_o <= `ReadDisable;
+          case(opnd_addr)
+            `IO_trans_switch:
+              begin
+                if(uart_switch_i == 1'b0)
+                  begin
+                    branch_flag_o <= `True;
+                    branch_target_o <= pc_i;
+                  end
+              end
+            `IO_uart_open:
+              begin
+                reg_uart_ce <= 1'b1;
+              end
+            `IO_trans_over:
+              begin
+                if(uart_finish_i == 1'b0)
+                  begin
+                    branch_flag_o <= `True;
+                    branch_target_o <= pc_i;
+                  end
+              end
+            `IO_uart_close:
+              begin
+                reg_uart_ce <= 1'b0;
+              end
+            `IO_music_switch:
+              begin
+                if(music_switch_i == 1'b0)
+                  begin
+                    branch_flag_o <= `True;
+                    branch_target_o <= pc_i;
+                  end
+              end
+            `IO_music_open:
+              begin
+                reg_music_ce <= 1'b1;
+              end
+            `IO_music_player_over:
+              begin
+                if(is_play_end_i == 1'b0)
+                  begin
+                    branch_flag_o <= `True;
+                    branch_target_o <= pc_i;
+                  end
+              end
+            `IO_music_close:
+              begin
+                reg_music_ce <= 1'b0;
+              end
+          endcase
+        end
       default:
         begin
         end
@@ -341,7 +411,7 @@ always @(*)
     reg1_related <= 1'b0;
     if(pre_inst_is_load == 1'b1 && ex_reg_waddr_i == reg_raddr1_o && reg_re1_o == 1'b1)
       begin
-      
+
         reg1_related  <= 1'b1;
       end
   end
