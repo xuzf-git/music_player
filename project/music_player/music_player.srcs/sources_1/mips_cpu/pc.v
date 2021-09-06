@@ -30,6 +30,9 @@ module pc(
 
          input wire[5:0] stop_i,
 
+         input wire trans_switch_i,
+         input wire music_switch_i,
+
          output  reg[`InstAddrBus]   pc_reg,    // 输出指令地址
          output  reg     ce                     // 指令存储器使能信号
        );
@@ -54,9 +57,17 @@ always @(posedge clk)
       begin
         pc_reg <= `ZeroWord;
       end
+    else if(trans_switch_i == 1'b1)
+      begin
+        pc_reg <= 32'h00000001; //TODO 传输指令区首地址 
+      end
+    else if(music_switch_i == 1'b1)
+      begin 
+        pc_reg <= 32'h00000001; //TODO 播放指令区首地址
+      end
     else if (stop_i[0] == 1'b1)
       begin
-
+        pc_reg <= branch_target_i;
       end
     else if (branch_flag_i == `True)
       begin

@@ -44,8 +44,8 @@ module id(
          input wire is_play_end_i,
          input wire uart_finish_i,
 
-         output wire uart_ce,
-         output wire music_ce,
+         output wire uart_ce_o,
+         output wire music_ce_o,
 
          // regfile 读端口的使能信号
          output  reg    reg_re1_o,
@@ -77,11 +77,11 @@ assign  inst_o = inst_i;
 
 // 记录指令中的立即数
 reg[`RegBus]    imm;
-reg reg_uart_ce = 0;
-reg reg_music_ce = 0;
+reg reg_uart_ce_o = 0;
+reg reg_music_ce_o = 0;
 
-assign uart_ce = reg_uart_ce;
-assign music_ce = reg_music_ce;
+assign uart_ce_o = reg_uart_ce_o;
+assign music_ce_o = reg_music_ce_o;
 
 // 指令解析
 wire[5:0] op = inst_i[31:26];
@@ -286,17 +286,14 @@ always @(*)
           reg_re1_o <= `ReadDisable;
           reg_re2_o <= `ReadDisable;
           case(opnd_addr)
-            `IO_trans_switch:
+            `IO_die_loop:
               begin
-                if(uart_switch_i == 1'b0)
-                  begin
-                    branch_flag_o <= `True;
-                    branch_target_o <= pc_i;
-                  end
+                branch_flag_o <= `True;
+                branch_target_o <= pc_i;
               end
             `IO_uart_open:
               begin
-                reg_uart_ce <= 1'b1;
+                reg_uart_ce_o <= 1'b1;
               end
             `IO_trans_over:
               begin
@@ -308,19 +305,11 @@ always @(*)
               end
             `IO_uart_close:
               begin
-                reg_uart_ce <= 1'b0;
-              end
-            `IO_music_switch:
-              begin
-                if(music_switch_i == 1'b0)
-                  begin
-                    branch_flag_o <= `True;
-                    branch_target_o <= pc_i;
-                  end
+                reg_uart_ce_o <= 1'b0;
               end
             `IO_music_open:
               begin
-                reg_music_ce <= 1'b1;
+                reg_music_ce_o <= 1'b1;
               end
             `IO_music_player_over:
               begin
@@ -332,7 +321,7 @@ always @(*)
               end
             `IO_music_close:
               begin
-                reg_music_ce <= 1'b0;
+                reg_music_ce_o <= 1'b0;
               end
           endcase
         end

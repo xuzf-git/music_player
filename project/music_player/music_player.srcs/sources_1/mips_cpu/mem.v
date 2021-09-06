@@ -42,21 +42,21 @@ module mem(
          output  wire                mem_ram_we_o,
          output  reg[`RegBus]        mem_ram_data_o,
 
-         output  wire[31:0]           uart_addr,
-         output  wire[31:0]           music_freq,
-         output  wire[31:0]           music_timer
+         output  wire[31:0]           uart_addr_o,
+         output  wire[31:0]           music_freq_o,
+         output  wire[31:0]           music_timer_o
        );
 
 reg mem_ram_we;
 assign  mem_ram_we_o = mem_ram_we;
 
-reg[31:0]  reg_uart_addr = 0;
-reg[31:0]  reg_music_freq = 0;
-reg[31:0]  reg_music_timer = 0;
+reg[31:0]  reg_uart_addr_o = 0;
+reg[31:0]  reg_music_freq_o = 0;
+reg[31:0]  reg_music_timer_o = 0;
 
-assign uart_addr = reg_uart_addr;
-assign music_freq = reg_music_freq;
-assign music_timer = reg_music_timer;
+assign uart_addr_o = reg_uart_addr_o;
+assign music_freq_o = reg_music_freq_o;
+assign music_timer_o = reg_music_timer_o;
 
 always @(*)
   begin
@@ -98,15 +98,15 @@ always @(*)
                   case(ex_ram_addr_i)
                     1023:
                       begin
-                          reg_uart_addr <= ex_reg_rt_i;
+                          reg_uart_addr_o <= ex_reg_rt_i;
                       end
                     1022:
                       begin
-                          reg_music_freq <= ex_reg_rt_i;
+                          reg_music_freq_o <= ex_reg_rt_i;
                       end
                     1021:
                       begin
-                          reg_music_timer <= ex_reg_rt_i;
+                          reg_music_timer_o <= ex_reg_rt_i;
                       end
                   endcase
                 end

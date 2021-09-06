@@ -47,14 +47,13 @@
 `define OP_XORI        6'b001110
 `define OP_IO          6'b000101
 
-`define IO_trans_switch         4'b0000
+`define IO_die_loop             4'b0000
 `define IO_uart_open            4'b0001
 `define IO_trans_over           4'b0010 
 `define IO_uart_close           4'b0011
-`define IO_music_switch         4'b0100
-`define IO_music_open           4'b0101
-`define IO_music_player_over    4'b0110
-`define IO_music_close          4'b0111
+`define IO_music_open           4'b0100
+`define IO_music_player_over    4'b0101
+`define IO_music_close          4'b0110
     
 `define ALU_ADD         8'h01
 `define ALU_AND         8'h02
