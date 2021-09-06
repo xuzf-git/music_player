@@ -67,10 +67,13 @@ uart uart0(
 
 
 music music0(
+        .clk(clk),
+        .rst(rst),
         .music_ce_i(music_ce),
         .music_freq_i(music_freq),
         .music_timer_i(music_timer),
         .is_play_end_o(is_play_end),
+        .buzzer_out(buzzer_out),
         .music_data_write_end_i(music_data_write_end)
       );
 
