@@ -39,8 +39,6 @@ module id(
          input wire mem_reg_we_i,
          input wire[`AluSelBus] ex_alu_sel_i,
 
-         input wire uart_switch_i,
-         input wire music_switch_i,
          input wire is_play_end_i,
          input wire uart_finish_i,
 
@@ -290,6 +288,14 @@ always @(*)
               begin
                 branch_flag_o <= `True;
                 branch_target_o <= pc_i;
+              end
+            `IO_uart_read:
+              begin
+                // TODO
+              end
+            `IO_uart_write_end:
+              begin
+                // TODO
               end
             `IO_uart_open:
               begin

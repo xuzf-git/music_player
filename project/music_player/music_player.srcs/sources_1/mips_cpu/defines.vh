@@ -54,6 +54,8 @@
 `define IO_music_open           4'b0100
 `define IO_music_player_over    4'b0101
 `define IO_music_close          4'b0110
+`define IO_uart_read            4'b0111 
+`define IO_uart_write_end       4'b1000  
     
 `define ALU_ADD         8'h01
 `define ALU_AND         8'h02
