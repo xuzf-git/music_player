@@ -1,0 +1,16 @@
+project/**/music_player.cache/*
+project/**/music_player.hw/*
+project/**/music_player.ip_user_files/*
+project/**/music_player.sim/*
+project/**/music_player.runs/*
+project/**/music_player.cache/
+project/**/music_player.hw/
+project/**/music_player.ip_user_files/
+project/**/music_player.sim/
+project/**/music_player.runs/
+**/.vscode/*
+*.log
+*.jou
+*.str
+**/ip/*
+*.xpr
