@@ -289,25 +289,17 @@ always @(*)
                 branch_flag_o <= `True;
                 branch_target_o <= pc_i;
               end
-            `IO_uart_read:
-              begin
-                // TODO
-              end
-            `IO_uart_write_end:
-              begin
-                // TODO
-              end
-            `IO_uart_open:
-              begin
-                reg_uart_ce_o <= 1'b1;
-              end
-            `IO_trans_over:
+            `IO_uart_transing_data:
               begin
                 if(uart_finish_i == 1'b0)
                   begin
                     branch_flag_o <= `True;
                     branch_target_o <= pc_i;
                   end
+              end
+            `IO_uart_open:
+              begin
+                reg_uart_ce_o <= 1'b1;
               end
             `IO_uart_close:
               begin

@@ -20,7 +20,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-
+// TODO 注意 uart 使能跳变的时候记录一个标志位输入第一组数据，不然会死锁
 module mem(
          input   wire    rst,
 
@@ -42,19 +42,19 @@ module mem(
          output  wire                mem_ram_we_o,
          output  reg[`RegBus]        mem_ram_data_o,
 
-         output  wire[31:0]           uart_addr_o,
-         output  wire[31:0]           music_freq_o,
-         output  wire[31:0]           music_timer_o
+         input   wire[31:0]          uart_data_i,
+         output  wire[31:0]          music_freq_o,
+         output  wire[31:0]          music_timer_o,
+         output  reg                 uart_data_recv_end_o,
+         output  reg                 music_data_write_end_o
        );
 
 reg mem_ram_we;
 assign  mem_ram_we_o = mem_ram_we;
 
-reg[31:0]  reg_uart_addr_o = 0;
 reg[31:0]  reg_music_freq_o = 0;
 reg[31:0]  reg_music_timer_o = 0;
 
-assign uart_addr_o = reg_uart_addr_o;
 assign music_freq_o = reg_music_freq_o;
 assign music_timer_o = reg_music_timer_o;
 
@@ -70,6 +70,8 @@ always @(*)
         mem_ram_addr_o <= `ZeroWord;
         mem_ram_we <= `WriteDisable;
         mem_ram_data_o <= `ZeroWord;
+        uart_data_recv_end_o <= 1'b0;
+        music_data_write_end_o <= 1'b0;
       end
     else
       begin
@@ -78,12 +80,19 @@ always @(*)
         mem_wdata_o <= ex_wdata_i;
         mem_ram_we <= `WriteDisable;
         mem_ram_addr_o <= `ZeroWord;
+        uart_data_recv_end_o <= 1'b0;
+        music_data_write_end_o <= 1'b0;
         case (ex_alu_sel_i)
           `ALU_LW:
             begin
               mem_ram_addr_o <= ex_ram_addr_i;
               mem_ram_we <= `WriteDisable;
               mem_wdata_o <= ram_data_i;
+              if(ex_ram_addr_i == 1023)
+                begin
+                  mem_wdata_o <= uart_data_i;
+                  uart_data_recv_end_o <= 1'b1;
+                end
             end
           `ALU_SW:
             begin
@@ -96,17 +105,14 @@ always @(*)
               else
                 begin
                   case(ex_ram_addr_i)
-                    1023:
-                      begin
-                          reg_uart_addr_o <= ex_reg_rt_i;
-                      end
                     1022:
                       begin
-                          reg_music_freq_o <= ex_reg_rt_i;
+                        reg_music_freq_o <= ex_reg_rt_i;
                       end
                     1021:
                       begin
-                          reg_music_timer_o <= ex_reg_rt_i;
+                        reg_music_timer_o <= ex_reg_rt_i;
+                        music_data_write_end_o <= 1'b1;
                       end
                   endcase
                 end
