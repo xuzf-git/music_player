@@ -8,7 +8,7 @@ module uart_interface(
     output wire uart_out_ready_o,
     
     input wire rx_pin_jb1,
-    output wire [7:0] rx_data_o,
+    output wire [31:0] rx_data_o,
     output wire rx_buf_not_empty,
     output wire rx_buf_full
     );
@@ -31,7 +31,7 @@ module uart_interface(
         .read_sig(read_sig)
     );
     
-    wire [7:0] rx_get_data;
+    wire [31:0] rx_get_data;
     
     uart uart_real(
         .clk( clk ),
@@ -47,7 +47,7 @@ module uart_interface(
         
         .tx_write( 1'b0 ),
         .tx_pin_out(  ),
-        .tx_send_data( 8'b0 ),
+        .tx_send_data( 32'b0 ),
         .tx_buf_not_full(  )
     );
     

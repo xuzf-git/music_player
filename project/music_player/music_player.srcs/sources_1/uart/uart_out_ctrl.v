@@ -25,9 +25,9 @@ module uart_out_ctrl(
     input wire rst,
     
     input wire read_sig,
-    input wire[7:0] rx_get_data,
+    input wire[31:0] rx_get_data,
     output reg uart_out_ready_o,
-    output reg[7:0] rx_out_data
+    output reg[31:0] rx_out_data
     );
     
     always @( posedge clk or posedge rst )
