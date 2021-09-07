@@ -39,7 +39,7 @@ initial
     music_switch = 1'b0;
     #20;
     rst = 1'b0;
-    #150
+    #15000000
     trans_switch = 1'b1;
     #20
     trans_switch = 1'b0;
@@ -110,6 +110,42 @@ begin
     
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    
+    
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
@@ -142,6 +178,7 @@ begin
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    
     // 等待两个波特率周期后读取接收缓存数据
     @( posedge rx_clk_bps );
     @( posedge rx_clk_bps );

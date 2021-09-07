@@ -42,23 +42,23 @@ wire uart_finish;
 wire uart_data_recv_end;
 
 pipeline pipeline0(
-           .clk(clk),
-           .rst(rst),
+       .clk(clk),
+       .rst(rst),
 
-           .uart_data_recv_end_o(uart_data_recv_end),
+       .uart_data_recv_end_o(uart_data_recv_end),
 
-           .trans_switch_i(trans_switch_i),
-           .music_switch_i(music_switch_i),
+       .trans_switch_i(trans_switch_i),
+       .music_switch_i(music_switch_i),
 
-           .is_play_end_i(is_play_end),
-           .uart_finish_i(uart_finish),
+       .is_play_end_i(is_play_end),
+       .uart_finish_i(uart_finish),
 
-           .uart_ce_o(uart_ce),
-           .music_ce_o(music_ce),
-           .uart_data_i(uart_data),
-           .music_freq_o(music_freq),
-           .music_timer_o(music_timer)
-         );
+       .uart_ce_o(uart_ce),
+       .music_ce_o(music_ce),
+       .uart_data_i(uart_data),
+       .music_freq_o(music_freq),
+       .music_timer_o(music_timer)
+     );
 
 uart_interface uart0(
        .clk(clk),
