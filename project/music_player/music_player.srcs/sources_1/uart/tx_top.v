@@ -4,7 +4,7 @@ module tx_top(
     input rst,
     
     output tx_pin_out,
-    input [7:0]tx_data,
+    input [31:0]tx_data,
     input tx_buf_not_empty,
     output tx_read_buf
     );

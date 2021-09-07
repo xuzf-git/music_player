@@ -3,7 +3,7 @@ module rx_top(
     input clk,
     input rst,
     input rx_pin_in,
-    output [7:0]rx_data,
+    output [31:0]rx_data,
     output rx_done_sig
     );
     wire rx_pin_H2L;
