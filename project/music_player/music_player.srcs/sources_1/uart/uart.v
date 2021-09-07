@@ -73,6 +73,7 @@ module uart(
     wire tx_buf_not_empty;
     assign tx_buf_not_full = ~tx_buf_full;
     assign tx_buf_not_empty = ~tx_buf_empty;
+    
     data_buf tx_buf (
       .clk( clk ),      // input wire clk
       .rst( rst ),      // input wire rst

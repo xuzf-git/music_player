@@ -10,7 +10,7 @@
 // Project Name:
 // Target Devices:
 // Tool Versions:
-// Description: ï¿½Ã´ï¿½Ä£ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½Ø´æ´¢Ö¸ï¿½ï¿½ï¿½ï¿½Ð´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·Ç·Ã´ï¿½Ö¸ï¿½ï¿½Ö±ï¿½Ó´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ä£ï¿½ï¿½
+// Description: ·Ã´æÄ£¿é£¬¶ÔÓÚÊý¾Ý¼ÓÔØ´æ´¢Ö¸Áî½øÐÐ´æ´¢Æ÷²Ù×÷£¬¶ÔÓÚ·Ç·Ã´æÖ¸ÁîÖ±½Ó´«µ½Ð´»ØÄ£¿é
 //
 // Dependencies:
 //
@@ -20,24 +20,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-// TODO ×¢ï¿½ï¿½ uart Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â¼Ò»ï¿½ï¿½ï¿½ï¿½Ö¾Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// TODO ×¢Òâ uart Ê¹ÄÜÌø±äµÄÊ±ºò¼ÇÂ¼Ò»¸ö±êÖ¾Î»ÊäÈëµÚÒ»×éÊý¾Ý£¬²»È»»áËÀËø
 module mem(
          input   wire    rst,
 
          input   wire[`RegAddrBus]   ex_waddr_i,
          input   wire                ex_we_i,
          input   wire[`RegBus]       ex_wdata_i,
-         // ï¿½ï¿½ï¿½ï¿½ EX Ä£ï¿½ï¿½ï¿½ï¿½Åºï¿½
+         // À´×Ô EX Ä£¿éµÄÐÅºÅ
          input  wire[`AluSelBus]     ex_alu_sel_i,
          input  wire[`RegBus]        ex_ram_addr_i,
          input  wire[`RegBus]        ex_reg_rt_i,
-         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+         // À´×ÔÊý¾Ý´æ´¢Æ÷µÄÐÅºÅ
          input  wire[`RegBus]        ram_data_i,
-         // ï¿½ï¿½ï¿½ï¿½ï¿½ WB Ä£ï¿½ï¿½ï¿½ï¿½Åºï¿½
+         // Êä³öµ½ WB Ä£¿éµÄÐÅºÅ
          output  reg[`RegAddrBus]    mem_waddr_o,
          output  reg                 mem_we_o,
          output  reg[`RegBus]        mem_wdata_o,
-         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
+         // Êä³öµ½Êý¾Ý´æ´¢Æ÷µÄÐÅºÅ
          output  reg[`RegBus]        mem_ram_addr_o,
          output  wire                mem_ram_we_o,
          output  reg[`RegBus]        mem_ram_data_o,
