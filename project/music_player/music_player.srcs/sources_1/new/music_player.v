@@ -24,7 +24,7 @@ module music_player(
          input wire clk,
          input wire rst,
          input wire trans_switch_i,
-         input wire music_switch_i,
+         input wire music_switch_i, 
          output buzzer_out
        );
 
@@ -56,11 +56,19 @@ pipeline pipeline0(
            .music_timer_o(music_timer)
          );
 
-uart uart0(
-//       .uart_ce_i(uart_ce),
-//       .uart_data_o(uart_data),
-//       .uart_finish_o(uart_finish),
-//       .uart_data_recv_end_i(uart_data_recv_end)
+uart_interface uart0(
+       .clk(clk),
+       .rst_n(rst),
+       
+       .uart_ce_i(uart_ce),
+       .uart_out_en_i(),
+       
+       .rx_pin_jb1(),       
+       .rx_data_o(uart_data),
+       
+       .uart_out_ready_o(uart_finish),
+       .rx_buf_not_empty(),
+       .rx_buf_full()
      );
 
 

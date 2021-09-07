@@ -48,41 +48,42 @@ module uart(
     //     .rx_read( rx_read ),
     //     .tx_write( tx_write ),
         
-    //     .gate_clk( gate_clk ),
-    //     .rst_en_ctl( rst_en_ctl ),
-    //     .rx_read_buf( rx_read_buf ),
-    //     .tx_write_buf( tx_write_buf )
-    // );
-    // wire [7:0]rx_data;
-    // wire rx_write_buf;
-    // wire rx_buf_empty;
-    // assign rx_buf_not_empty = ~rx_buf_empty;
-    // data_buf rx_buf (
-    //   .clk( clk ),      // input wire clk
-    //   .rst( rst ),      // input wire rst
-    //   .din( rx_data ),      // input wire [7 : 0] din
-    //   .wr_en( rx_write_buf ),  // input wire wr_en
-    //   .rd_en( rx_read_buf ),  // input wire rd_en
-    //   .dout( rx_get_data ),    // output wire [7 : 0] dout
-    //   .full( rx_buf_full ),    // output wire full
-    //   .empty( rx_buf_empty )  // output wire empty
-    // );
-    // wire tx_read_buf;
-    // wire [7:0]tx_data;
-    // wire tx_buf_full,tx_buf_empty;
-    // wire tx_buf_not_empty;
-    // assign tx_buf_not_full = ~tx_buf_full;
-    // assign tx_buf_not_empty = ~tx_buf_empty;
-    // data_buf tx_buf (
-    //   .clk( clk ),      // input wire clk
-    //   .rst( rst ),      // input wire rst
-    //   .din( tx_send_data ),      // input wire [7 : 0] din
-    //   .wr_en( tx_write_buf ),  // input wire wr_en
-    //   .rd_en( tx_read_buf ),  // input wire rd_en
-    //   .dout( tx_data ),    // output wire [7 : 0] dout
-    //   .full( tx_buf_full ),    // output wire full
-    //   .empty( tx_buf_empty )  // output wire empty
-    // );
+        .gate_clk( gate_clk ),
+        .rst_en_ctl( rst_en_ctl ),
+        .rx_read_buf( rx_read_buf ),
+        .tx_write_buf( tx_write_buf )
+    );
+    wire [7:0]rx_data;
+    wire rx_write_buf;
+    wire rx_buf_empty;
+    assign rx_buf_not_empty = ~rx_buf_empty;
+    data_buf rx_buf (
+      .clk( clk ),      // input wire clk
+      .rst( rst ),      // input wire rst
+      .din( rx_data ),      // input wire [7 : 0] din
+      .wr_en( rx_write_buf ),  // input wire wr_en
+      .rd_en( rx_read_buf ),  // input wire rd_en
+      .dout( rx_get_data ),    // output wire [7 : 0] dout
+      .full( rx_buf_full ),    // output wire full
+      .empty( rx_buf_empty )  // output wire empty
+    );
+    wire tx_read_buf;
+    wire [7:0]tx_data;
+    wire tx_buf_full,tx_buf_empty;
+    wire tx_buf_not_empty;
+    assign tx_buf_not_full = ~tx_buf_full;
+    assign tx_buf_not_empty = ~tx_buf_empty;
+    
+    data_buf tx_buf (
+      .clk( clk ),      // input wire clk
+      .rst( rst ),      // input wire rst
+      .din( tx_send_data ),      // input wire [7 : 0] din
+      .wr_en( tx_write_buf ),  // input wire wr_en
+      .rd_en( tx_read_buf ),  // input wire rd_en
+      .dout( tx_data ),    // output wire [7 : 0] dout
+      .full( tx_buf_full ),    // output wire full
+      .empty( tx_buf_empty )  // output wire empty
+    );
     
     // tx_top tx_top(
     //     .clk( clk ),

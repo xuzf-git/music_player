@@ -41,30 +41,30 @@ module pipeline(
          output  wire[31:0]           music_timer_o
        );
 
-// ï¿½ï¿½ï¿½ï¿½ inst_rom ï¿½ï¿½ CPU
+// Á¬½Ó inst_rom ºÍ CPU
 wire[`InstAddrBus]  inst_addr;
 wire[`InstBus]      inst;
 wire                inst_rom_en;
 
-// ï¿½ï¿½ï¿½ï¿½ data_ram ï¿½ï¿½ CPU
+// Á¬½Ó data_ram ºÍ CPU
 wire[`RegBus]       ram_rdata;
 wire[`RegBus]       ram_addr;
 wire                ram_we;
 wire[`RegBus]       ram_wdata;
 
 
-// Êµï¿½ï¿½ï¿½ï¿½ MIPS_CPU
+// ÊµÀý»¯ MIPS_CPU
 mips_cpu cpu(
            .clk(clk),
            .rst(rst),
-           // inst_rom ï¿½ï¿½ï¿½Í¸ï¿½ CPU ï¿½ï¿½Ö¸ï¿½ï¿½
+           // inst_rom ·¢ËÍ¸ø CPU µÄÖ¸Áî
            .rom_rdata_i(inst),
-           // CPU ï¿½ï¿½ï¿½Í¸ï¿½ inst_rom ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
+           // CPU ·¢ËÍ¸ø inst_rom µÄÖ¸ÁîµØÖ·ºÍÊ¹ÄÜÐÅºÅ
            .rom_raddr_o(inst_addr),
            .rom_re_o(inst_rom_en),
-           // data_ram ï¿½ï¿½ï¿½Í¸ï¿½ CPU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+           // data_ram ·¢ËÍ¸ø CPU µÄÊý¾Ý
            .ram_data_i(ram_rdata),
-           // CPU ï¿½ï¿½ï¿½Í¸ï¿½ data_ram ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö·ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ÅºÅ¡ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+           // CPU ·¢ËÍ¸ø data_ram µÄÊý¾ÝµØÖ·¡¢Ê¹ÄÜÐÅºÅ¡¢Ð´ÈëÊý¾Ý
            .ram_addr_o(ram_addr),
            .ram_we_o(ram_we),
            .ram_data_o(ram_wdata),
@@ -81,15 +81,15 @@ mips_cpu cpu(
            .music_timer_o(music_timer_o)
          );
 
-// Êµï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½æ´¢ï¿½ï¿½ ROM
+// ÊµÀý»¯Ö¸Áî´æ´¢Æ÷ ROM
 inst_rom rom(
-           .a(inst_addr[11:2]),    // [11:2] WORD ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½
+           .a(inst_addr[11:2]),    // [11:2] WORD µØÖ·¶ÔÆëÔ¼Êø
            .spo(inst)
          );
 
-// Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ RAM
+// ÊµÀý»¯Êý¾Ý´æ´¢Æ÷ RAM
 data_ram ram(
-           .a(ram_addr[11:2]),    // [11:2] WORD ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½
+           .a(ram_addr[11:2]),    // [11:2] WORD µØÖ·¶ÔÆëÔ¼Êø
            .d(ram_wdata),
            .clk(clk),
            .we(ram_we),

@@ -10,7 +10,7 @@
 // Project Name:
 // Target Devices:
 // Tool Versions:
-// Description: ?????é£¬???????????æ´¢?????Ğ´æ´¢????????????????????????Ğ´?????
+// Description: ·Ã´æÄ£¿é£¬¶ÔÓÚÊı¾İ¼ÓÔØ´æ´¢Ö¸Áî½øĞĞ´æ´¢Æ÷²Ù×÷£¬¶ÔÓÚ·Ç·Ã´æÖ¸ÁîÖ±½Ó´«µ½Ğ´»ØÄ£¿é
 //
 // Dependencies:
 //
@@ -20,24 +20,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-// TODO ??? uart ???????????????????Î»??????????????????????
+// TODO ×¢Òâ uart Ê¹ÄÜÌø±äµÄÊ±ºò¼ÇÂ¼Ò»¸ö±êÖ¾Î»ÊäÈëµÚÒ»×éÊı¾İ£¬²»È»»áËÀËø
 module mem(
          input   wire    rst,
 
          input   wire[`RegAddrBus]   ex_waddr_i,
          input   wire                ex_we_i,
          input   wire[`RegBus]       ex_wdata_i,
-         // ???? EX ???????
+         // À´×Ô EX Ä£¿éµÄĞÅºÅ
          input  wire[`AluSelBus]     ex_alu_sel_i,
          input  wire[`RegBus]        ex_ram_addr_i,
          input  wire[`RegBus]        ex_reg_rt_i,
-         // ????????æ´¢???????
+         // À´×ÔÊı¾İ´æ´¢Æ÷µÄĞÅºÅ
          input  wire[`RegBus]        ram_data_i,
-         // ????? WB ???????
+         // Êä³öµ½ WB Ä£¿éµÄĞÅºÅ
          output  reg[`RegAddrBus]    mem_waddr_o,
          output  reg                 mem_we_o,
          output  reg[`RegBus]        mem_wdata_o,
-         // ?????????æ´¢???????
+         // Êä³öµ½Êı¾İ´æ´¢Æ÷µÄĞÅºÅ
          output  reg[`RegBus]        mem_ram_addr_o,
          output  wire                mem_ram_we_o,
          output  reg[`RegBus]        mem_ram_data_o,
