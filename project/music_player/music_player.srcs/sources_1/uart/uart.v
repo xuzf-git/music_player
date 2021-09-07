@@ -37,16 +37,16 @@ module uart(
     output tx_buf_not_full
     );
     
-    // wire rx_read_buf,tx_write_buf;
-    // wire gate_clk,rst_en_ctl;
-    // en_ctrl en_ctrl(
-    //     .clk( clk ),
-    //     .rst( rst ),
+     wire rx_read_buf,tx_write_buf;
+     wire gate_clk,rst_en_ctl;
+     en_ctrl en_ctrl(
+         .clk( clk ),
+         .rst( rst ),
         
-    //     .en( en ),
+         .en( en ),
         
-    //     .rx_read( rx_read ),
-    //     .tx_write( tx_write ),
+         .rx_read( rx_read ),
+         .tx_write( tx_write ),
         
         .gate_clk( gate_clk ),
         .rst_en_ctl( rst_en_ctl ),
@@ -85,20 +85,20 @@ module uart(
       .empty( tx_buf_empty )  // output wire empty
     );
     
-    // tx_top tx_top(
-    //     .clk( clk ),
-    //     .rst( rst_en_ctl ),
-    //     .tx_pin_out( tx_pin_out ),
-    //     .tx_data( tx_data ),
-    //     .tx_buf_not_empty( tx_buf_not_empty ),
-    //     .tx_read_buf( tx_read_buf )
-    // );
-    // rx_top rx_top(
-    //     .clk( clk ),
-    //     .rst( rst_en_ctl ),
-    //     .rx_pin_in( rx_pin_in ),
-    //     .rx_data( rx_data ),
-    //     .rx_done_sig( rx_write_buf )
-    // );
+     tx_top tx_top(
+         .clk( clk ),
+         .rst( rst_en_ctl ),
+         .tx_pin_out( tx_pin_out ),
+         .tx_data( tx_data ),
+         .tx_buf_not_empty( tx_buf_not_empty ),
+         .tx_read_buf( tx_read_buf )
+     );
+     rx_top rx_top(
+         .clk( clk ),
+         .rst( rst_en_ctl ),
+         .rx_pin_in( rx_pin_in ),
+         .rx_data( rx_data ),
+         .rx_done_sig( rx_write_buf )
+     );
 endmodule
 
