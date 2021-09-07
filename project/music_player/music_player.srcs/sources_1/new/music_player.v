@@ -25,7 +25,11 @@ module music_player(
          input wire rst,
          input wire trans_switch_i,
          input wire music_switch_i, 
-         output buzzer_out
+         input wire uart_rx,
+         
+         output wire rx_buf_not_empty,
+         output wire rx_buf_full,
+         output wire buzzer_out
        );
 
 wire uart_ce;
@@ -60,15 +64,15 @@ uart_interface uart0(
        .clk(clk),
        .rst_n(rst),
        
-       .uart_ce_i(uart_ce),
-       .uart_out_en_i(),
+       .uart_ce_i(uart_ce),                     // uart interface enable
+       .uart_out_en_i(uart_data_recv_end),      // cpu already get last data
        
-       .rx_pin_jb1(),       
-       .rx_data_o(uart_data),
+       .rx_pin_jb1(uart_rx),                    // recevive pin data
+       .rx_data_o(uart_data),                   // uart data 8 bit
        
-       .uart_out_ready_o(uart_finish),
-       .rx_buf_not_empty(),
-       .rx_buf_full()
+       .uart_out_ready_o(uart_finish),          // uart have send current data 
+       .rx_buf_not_empty(rx_buf_not_empt),
+       .rx_buf_full(rx_buf_full)
      );
 
 
