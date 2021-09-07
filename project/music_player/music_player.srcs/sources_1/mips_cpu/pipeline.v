@@ -26,7 +26,6 @@ module pipeline(
          input   wire    rst,
 
          output  wire     uart_data_recv_end_o,
-         output  wire     music_data_write_end_o,
 
 
          input wire trans_switch_i,
@@ -42,36 +41,35 @@ module pipeline(
          output  wire[31:0]           music_timer_o
        );
 
-// Á¬½Ó inst_rom ºÍ CPU
+// ï¿½ï¿½ï¿½ï¿½ inst_rom ï¿½ï¿½ CPU
 wire[`InstAddrBus]  inst_addr;
 wire[`InstBus]      inst;
 wire                inst_rom_en;
 
-// Á¬½Ó data_ram ºÍ CPU
+// ï¿½ï¿½ï¿½ï¿½ data_ram ï¿½ï¿½ CPU
 wire[`RegBus]       ram_rdata;
 wire[`RegBus]       ram_addr;
 wire                ram_we;
 wire[`RegBus]       ram_wdata;
 
 
-// ÊµÀý»¯ MIPS_CPU
+// Êµï¿½ï¿½ï¿½ï¿½ MIPS_CPU
 mips_cpu cpu(
            .clk(clk),
            .rst(rst),
-           // inst_rom ·¢ËÍ¸ø CPU µÄÖ¸Áî
+           // inst_rom ï¿½ï¿½ï¿½Í¸ï¿½ CPU ï¿½ï¿½Ö¸ï¿½ï¿½
            .rom_rdata_i(inst),
-           // CPU ·¢ËÍ¸ø inst_rom µÄÖ¸ÁîµØÖ·ºÍÊ¹ÄÜÐÅºÅ
+           // CPU ï¿½ï¿½ï¿½Í¸ï¿½ inst_rom ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Åºï¿½
            .rom_raddr_o(inst_addr),
            .rom_re_o(inst_rom_en),
-           // data_ram ·¢ËÍ¸ø CPU µÄÊý¾Ý
+           // data_ram ï¿½ï¿½ï¿½Í¸ï¿½ CPU ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
            .ram_data_i(ram_rdata),
-           // CPU ·¢ËÍ¸ø data_ram µÄÊý¾ÝµØÖ·¡¢Ê¹ÄÜÐÅºÅ¡¢Ð´ÈëÊý¾Ý
+           // CPU ï¿½ï¿½ï¿½Í¸ï¿½ data_ram ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö·ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ÅºÅ¡ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
            .ram_addr_o(ram_addr),
            .ram_we_o(ram_we),
            .ram_data_o(ram_wdata),
 
            .uart_data_recv_end_o(uart_data_recv_end_o),
-           .music_data_write_end_o(music_data_write_end_o),
            .trans_switch_i(trans_switch_i),
            .music_switch_i(music_switch_i),
            .is_play_end_i(is_play_end_i),
@@ -83,15 +81,15 @@ mips_cpu cpu(
            .music_timer_o(music_timer_o)
          );
 
-// ÊµÀý»¯Ö¸Áî´æ´¢Æ÷ ROM
+// Êµï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½æ´¢ï¿½ï¿½ ROM
 inst_rom rom(
-           .a(inst_addr[11:2]),    // [11:2] WORD µØÖ·¶ÔÆëÔ¼Êø
+           .a(inst_addr[11:2]),    // [11:2] WORD ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½
            .spo(inst)
          );
 
-// ÊµÀý»¯Êý¾Ý´æ´¢Æ÷ RAM
+// Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´æ´¢ï¿½ï¿½ RAM
 data_ram ram(
-           .a(ram_addr[11:2]),    // [11:2] WORD µØÖ·¶ÔÆëÔ¼Êø
+           .a(ram_addr[11:2]),    // [11:2] WORD ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½
            .d(ram_wdata),
            .clk(clk),
            .we(ram_we),

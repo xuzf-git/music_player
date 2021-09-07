@@ -36,7 +36,6 @@ wire[31:0] music_timer;
 wire is_play_end;
 wire uart_finish;
 wire uart_data_recv_end;
-wire music_data_write_end;
 
 pipeline pipeline0(
            .clk(clk),
@@ -73,8 +72,7 @@ music music0(
         .music_freq_i(music_freq),
         .music_timer_i(music_timer),
         .is_play_end_o(is_play_end),
-        .buzzer_out(buzzer_out),
-        .music_data_write_end_i(music_data_write_end)
+        .buzzer_out(buzzer_out)
       );
 
 endmodule
