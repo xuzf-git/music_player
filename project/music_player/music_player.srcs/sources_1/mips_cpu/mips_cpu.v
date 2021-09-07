@@ -152,6 +152,8 @@ pc pc_real(
 
 assign rom_raddr_o = if_id_pc_i;
 
+wire uart_is_finish;
+
 // 实例化 IF_ID 模块
 if_id if_id_real(
         .clk(clk),
@@ -160,6 +162,9 @@ if_id if_id_real(
         .if_inst_i(rom_rdata_i),
         .id_pc_o(if_id_pc_o),
         .id_inst_o(if_id_inst_o),
+
+        .uart_finish_i(uart_finish_i),
+        .uart_finish_o(uart_is_finish),
         // 来自 CTRL 模块的暂停信号
         .stop_i(stop),
         // 来自 ID 模块的跳转信号，解决转移相关
@@ -192,7 +197,7 @@ id id_real(
      .ex_alu_sel_i(ex_mem_alu_sel_i),
 
      .is_play_end_i(is_play_end_i),
-     .uart_finish_i(uart_finish_i),
+     .uart_finish_i(uart_is_finish),
 
      .uart_ce_o(uart_ce_o),
      .music_ce_o(music_ce_o),

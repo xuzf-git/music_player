@@ -29,16 +29,26 @@ module if_id(
          input   wire[`InstAddrBus]  if_pc_i,
          input   wire[`InstBus]  if_inst_i,
          input   wire branch_flag_i,
+         input wire uart_finish_i,
 
          input wire[5:0] stop_i,
+
+         output reg uart_finish_o,
 
          // 将指令输出到译码阶段
          output  reg[`InstAddrBus]   id_pc_o,
          output  reg[`InstBus]   id_inst_o
        );
 
+reg uart_finish_reg = 0;
+
 always @(posedge clk)
   begin
+    if(uart_finish_reg == 1'b0 && uart_finish_i == 1'b1)
+      begin
+        uart_finish_reg = 1'b1;
+      end
+    uart_finish_o <= uart_finish_i;
     if (rst == `RstEnable)
       begin
         id_inst_o <= `ZeroWord;
@@ -49,6 +59,11 @@ always @(posedge clk)
       end
     else if (stop_i[1] == 1'b0)
       begin
+        if(uart_finish_reg == 1'b1 && if_inst_i == 32'h14000007)
+          begin
+            uart_finish_o <= 1'b1;
+            uart_finish_reg <= 1'b0;
+          end
         id_inst_o <= if_inst_i;
         id_pc_o <= if_pc_i;
       end
