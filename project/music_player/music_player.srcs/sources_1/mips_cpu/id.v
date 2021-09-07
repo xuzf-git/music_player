@@ -45,6 +45,7 @@ module id(
 
          output wire uart_ce_o,
          output wire music_ce_o,
+         output reg uart_data_recv_end_o,
 
          // regfile 读端口的使能信号
          output  reg    reg_re1_o,
@@ -123,6 +124,7 @@ always @(*)
     reg_raddr1_o <= `RegAddrNone;
     reg_raddr2_o <= `RegAddrNone;
     imm <= `ZeroWord;
+    uart_data_recv_end_o <= 1'b0;
 
     branch_flag_o <= `False;
     branch_target_o <= `ZeroWord;
@@ -323,6 +325,7 @@ always @(*)
               end
             `IO_uart_open:
               begin
+                uart_data_recv_end_o <= 1'b1;
                 reg_uart_ce_o <= 1'b1;
               end
             `IO_uart_close:

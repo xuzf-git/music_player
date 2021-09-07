@@ -120,6 +120,11 @@ wire                wb_we;
 wire[`RegAddrBus]   wb_waddr;
 wire[`RegBus]       wb_wdata;
 
+wire uart_data_recv_end_o_id;
+wire uart_data_recv_end_o_mem;
+
+assign uart_data_recv_end_o  = uart_data_recv_end_o_id | uart_data_recv_end_o_mem;
+
 // 实例化 CTRL 模块
 ctrl ctrl_real(
        .stopreq_from_id_i(stopreq_from_id),
@@ -191,6 +196,7 @@ id id_real(
 
      .uart_ce_o(uart_ce_o),
      .music_ce_o(music_ce_o),
+     .uart_data_recv_end_o(uart_data_recv_end_o_id),
 
      // 解决隔一条指令的数据相关
      .mem_reg_wdata_i(mem_wb_wdata_i),
@@ -326,7 +332,7 @@ mem mem_real(
       .uart_data_i(uart_data_i),
       .music_freq_o(music_freq_o),
       .music_timer_o(music_timer_o),
-      .uart_data_recv_end_o(uart_data_recv_end_o)
+      .uart_data_recv_end_o(uart_data_recv_end_o_mem)
     );
 
 // 实例化 MEM_WB 模块
