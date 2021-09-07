@@ -42,13 +42,12 @@ pipeline pipeline0(
            .rst(rst),
 
            .uart_data_recv_end_o(uart_data_recv_end),
-           .music_data_write_end_o(music_data_write_end),
 
            .trans_switch_i(trans_switch_i),
            .music_switch_i(music_switch_i),
 
-           .is_play_end_i(is_play_end_i),
-           .uart_finish_i(uart_finish_i),
+           .is_play_end_i(is_play_end),
+           .uart_finish_i(uart_finish),
 
            .uart_ce_o(uart_ce),
            .music_ce_o(music_ce),
@@ -58,10 +57,10 @@ pipeline pipeline0(
          );
 
 uart uart0(
-       .uart_ce_i(uart_ce),
-       .uart_data_o(uart_data),
-       .uart_finish_o(uart_finish),
-       .uart_data_recv_end_i(uart_data_recv_end)
+//       .uart_ce_i(uart_ce),
+//       .uart_data_o(uart_data),
+//       .uart_finish_o(uart_finish),
+//       .uart_data_recv_end_i(uart_data_recv_end)
      );
 
 

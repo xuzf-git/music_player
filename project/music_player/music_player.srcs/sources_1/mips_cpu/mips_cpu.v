@@ -34,7 +34,7 @@ module mips_cpu(
          output  wire[`RegBus]    ram_addr_o,
          output  wire            ram_we_o,
          output  wire[`RegBus]    ram_data_o,
-         
+
          output  wire                 uart_data_recv_end_o,
 
          input wire trans_switch_i,
@@ -50,22 +50,22 @@ module mips_cpu(
          output  wire[31:0]           music_timer_o
        );
 
-// ���� CTRL ģ�������ģ��
+// ���� CTRL ģ�������ģ��?
 wire                    stopreq_from_id;
 wire[5:0]               stop;
 
-// ���� PC ģ��� IF_ID ģ��
+// ���� PC ģ���? IF_ID ģ��
 wire[`RegBus]       if_id_pc_i;
 
-// ���� PC ģ��� ID ģ��
+// ���� PC ģ���? ID ģ��
 wire                branch_flag;
 wire[`RegBus]       branch_target;
 
-// ���� IF_ID ģ��� ID ģ��
+// ���� IF_ID ģ���? ID ģ��
 wire[`RegBus]       if_id_pc_o;
 wire[`RegBus]       if_id_inst_o;
 
-// ���� ID ģ��� Regfile ģ��
+// ���� ID ģ���? Regfile ģ��
 wire                reg_re1;
 wire                reg_re2;
 wire[`RegBus]       reg_rdata1;
@@ -73,7 +73,7 @@ wire[`RegBus]       reg_rdata2;
 wire[`RegAddrBus]   reg_raddr1;
 wire[`RegAddrBus]   reg_raddr2;
 
-// ���� ID ģ��� ID_EX ģ��
+// ���� ID ģ���? ID_EX ģ��
 wire[`AluSelBus]    id_ex_alu_sel_i;
 wire[`RegBus]       id_ex_alu_opnd1_i;
 wire[`RegBus]       id_ex_alu_opnd2_i;
@@ -81,7 +81,7 @@ wire                id_ex_reg_we_i;
 wire[`RegAddrBus]   id_ex_reg_waddr_i;
 wire[`RegBus]       id_ex_inst_i;
 
-// ���� ID_EX ģ��� EX ģ��
+// ���� ID_EX ģ���? EX ģ��
 wire[`AluSelBus]    id_ex_alu_sel_o;
 wire[`RegBus]       id_ex_alu_opnd1_o;
 wire[`RegBus]       id_ex_alu_opnd2_o;
@@ -89,7 +89,7 @@ wire                id_ex_reg_we_o;
 wire[`RegAddrBus]   id_ex_reg_waddr_o;
 wire[`RegBus]       id_ex_inst_o;
 
-// ���� EX ģ��� EX_MEM ģ��
+// ���� EX ģ���? EX_MEM ģ��
 wire                ex_mem_we_i;        // ���� ID ģ�飬����������
 wire[`RegAddrBus]   ex_mem_waddr_i;     // ���� ID ģ�飬����������
 wire[`RegBus]       ex_mem_wdata_i;     // ���� ID ģ�飬����������
@@ -97,7 +97,7 @@ wire[`AluSelBus]    ex_mem_alu_sel_i;
 wire[`RegBus]       ex_mem_ram_addr_i;
 wire[`RegBus]       ex_mem_reg_rt_i;
 
-// ���� EX_MEM ģ��� MEM ģ��
+// ���� EX_MEM ģ���? MEM ģ��
 wire                ex_mem_we_o;
 wire[`RegAddrBus]   ex_mem_waddr_o;
 wire[`RegBus]       ex_mem_wdata_o;
@@ -105,17 +105,17 @@ wire[`AluSelBus]    ex_mem_alu_sel_o;
 wire[`RegBus]       ex_mem_ram_addr_o;
 wire[`RegBus]       ex_mem_reg_rt_o;
 
-// ���� MEM ģ��� MEM_WB ģ��
-wire                mem_wb_we_i;        // ���� ID ģ������һ��ָ���������
-wire[`RegAddrBus]   mem_wb_waddr_i;     // ���� ID ģ������һ��ָ���������
-wire[`RegBus]       mem_wb_wdata_i;     // ���� ID ģ������һ��ָ���������
+// ���� MEM ģ���? MEM_WB ģ��
+wire                mem_wb_we_i;        // ���� ID ģ������һ��ָ���������?
+wire[`RegAddrBus]   mem_wb_waddr_i;     // ���� ID ģ������һ��ָ���������?
+wire[`RegBus]       mem_wb_wdata_i;     // ���� ID ģ������һ��ָ���������?
 
-// ���� MEM_WB ģ��� WB ģ��
+// ���� MEM_WB ģ���? WB ģ��
 wire                mem_wb_we_o;
 wire[`RegAddrBus]   mem_wb_waddr_o;
 wire[`RegBus]       mem_wb_wdata_o;
 
-// ���� WB ģ��� Regfile ģ��
+// ���� WB ģ���? Regfile ģ��
 wire                wb_we;
 wire[`RegAddrBus]   wb_waddr;
 wire[`RegBus]       wb_wdata;
@@ -130,10 +130,10 @@ ctrl ctrl_real(
 pc pc_real(
      .clk(clk),
      .rst(rst),
-     // ���� CTRL ģ�����ͣ�ź�
+     // ���� CTRL ģ�����ͣ�ź�?
      .stop_i(stop),
 
-     // ���� ID ģ��ķ�֧ת����Ϣ
+     // ���� ID ģ��ķ�֧ת�����?
      .branch_flag_i(branch_flag),
      .branch_target_i(branch_target),
      // �����ָ��洢�� ROM ����Ϣ
@@ -155,34 +155,35 @@ if_id if_id_real(
         .if_inst_i(rom_rdata_i),
         .id_pc_o(if_id_pc_o),
         .id_inst_o(if_id_inst_o),
-        // ���� CTRL ģ�����ͣ�ź�
+        // ���� CTRL ģ�����ͣ�ź�?
         .stop_i(stop),
-        // ���� ID ģ�����ת�źţ����ת�����
+        // ���� ID ģ�����ת�źţ����ת�����?
         .branch_flag_i(branch_flag)
       );
 
 // ʵ���� ID
 id id_real(
+     .clk(clk),
      .rst(rst),
 
-     // ���� PC ģ�������
+     // ���� PC ģ�������?
      .inst_i(if_id_inst_o),
      .pc_i(if_id_pc_o),
 
-     // ����� PC ģ���ת����Ϣ
+     // �����? PC ģ���ת�����?
      .branch_flag_o(branch_flag),
      .branch_target_o(branch_target),
 
-     // ���� Regfile ģ�������
+     // ���� Regfile ģ�������?
      .reg_rdata1_i(reg_rdata1),
      .reg_rdata2_i(reg_rdata2),
 
-     // �������ָ����������
+     // �������ָ����������?
      .ex_reg_wdata_i(ex_mem_wdata_i),
      .ex_reg_waddr_i(ex_mem_waddr_i),
      .ex_reg_we_i(ex_mem_we_i),
 
-     // ���� EX ģ���ָ��ѡ���źţ��ж� load ���
+     // ���� EX ģ���ָ��ѡ���źţ��ж�? load ���?
      .ex_alu_sel_i(ex_mem_alu_sel_i),
 
      .is_play_end_i(is_play_end_i),
@@ -191,21 +192,21 @@ id id_real(
      .uart_ce_o(uart_ce_o),
      .music_ce_o(music_ce_o),
 
-     // �����һ��ָ����������
+     // �����һ��ָ����������?
      .mem_reg_wdata_i(mem_wb_wdata_i),
      .mem_reg_waddr_i(mem_wb_waddr_i),
      .mem_reg_we_i(mem_wb_we_i),
 
-     // ����� CTRL ģ�����ˮ����ͣ�ź�
+     // �����? CTRL ģ�����ˮ����ͣ�ź�?
      .stopreq_from_id_o(stopreq_from_id),
 
-     // ����� Regfile ģ�����Ϣ
+     // �����? Regfile ģ������?
      .reg_re1_o(reg_re1),
      .reg_re2_o(reg_re2),
      .reg_raddr1_o(reg_raddr1),
      .reg_raddr2_o(reg_raddr2),
 
-     // ����� EX ģ�����Ϣ
+     // �����? EX ģ������?
      .alu_sel_o(id_ex_alu_sel_i),
      .alu_opnd1_o(id_ex_alu_opnd1_i),
      .alu_opnd2_o(id_ex_alu_opnd2_i),
@@ -230,7 +231,7 @@ regfile regfile_real(
           .raddr1_i(reg_raddr1),
           .raddr2_i(reg_raddr2),
 
-          // ����� ID ģ�����Ϣ
+          // �����? ID ģ������?
           .rdata1_o(reg_rdata1),
           .rdata2_o(reg_rdata2)
         );
@@ -251,7 +252,7 @@ id_ex id_ex_real(
         .ex_reg_waddr_o(id_ex_reg_waddr_o),
         .ex_reg_we_o(id_ex_reg_we_o),
         .ex_inst_o(id_ex_inst_o),
-        // ���� CTRL ģ�����ͣ�ź�
+        // ���� CTRL ģ�����ͣ�ź�?
         .stop_i(stop)
       );
 
@@ -267,7 +268,7 @@ ex ex_real(
      .reg_waddr_i(id_ex_reg_waddr_o),
      .reg_we_i(id_ex_reg_we_o),
 
-     // ����� MEM ģ�����Ϣ
+     // �����? MEM ģ������?
      .reg_waddr_o(ex_mem_waddr_i),
      .reg_we_o(ex_mem_we_i),
      .reg_wdata_o(ex_mem_wdata_i),
@@ -293,7 +294,7 @@ ex_mem ex_mem_real(
          .mem_alu_sel_o(ex_mem_alu_sel_o),
          .mem_ram_addr_o(ex_mem_ram_addr_o),
          .mem_reg_rt_o(ex_mem_reg_rt_o),
-         // ���� CTRL ģ�����ͣ�ź�
+         // ���� CTRL ģ�����ͣ�ź�?
          .stop_i(stop)
        );
 
@@ -312,12 +313,12 @@ mem mem_real(
       // �����ݴ洢���������ź�
       .ram_data_i(ram_data_i),
 
-      // ����� WB ģ�����Ϣ
+      // �����? WB ģ������?
       .mem_waddr_o(mem_wb_waddr_i),
       .mem_we_o(mem_wb_we_i),
       .mem_wdata_o(mem_wb_wdata_i),
 
-      // ��������ݴ洢�����ź�
+      // ��������ݴ洢�����ź�?
       .mem_ram_addr_o(ram_addr_o),
       .mem_ram_we_o(ram_we_o),
       .mem_ram_data_o(ram_data_o),
@@ -338,7 +339,7 @@ mem_wb mem_wb_real(
          .wb_waddr_o(mem_wb_waddr_o),
          .wb_we_o(mem_wb_we_o),
          .wb_wdata_o(mem_wb_wdata_o),
-         // ���� CTRL ģ�����ͣ�ź�
+         // ���� CTRL ģ�����ͣ�ź�?
          .stop_i(stop)
        );
 
@@ -351,7 +352,7 @@ wb wb_real(
      .mem_we_i(mem_wb_we_o),
      .mem_wdata_i(mem_wb_wdata_o),
 
-     // ����� Regfile ģ�����Ϣ
+     // �����? Regfile ģ������?
      .wb_waddr_o(wb_waddr),
      .wb_we_o(wb_we),
      .wb_wdata_o(wb_wdata)

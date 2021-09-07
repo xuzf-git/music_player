@@ -22,6 +22,7 @@
 
 
 module id(
+         input wire clk,
          input   wire    rst,
          input   wire[`InstBus]    inst_i,
          input   wire[`InstAddrBus]   pc_i,
@@ -80,6 +81,25 @@ reg reg_music_ce_o = 0;
 
 assign uart_ce_o = reg_uart_ce_o;
 assign music_ce_o = reg_music_ce_o;
+
+reg is_finish_lock = 0;
+reg is_play_lock = 0;
+
+always @(posedge clk)
+  begin
+    if(uart_finish_i == 1'b1 && is_finish_lock == 1'b0)
+      begin
+        is_finish_lock = 1'b1;
+      end
+  end
+
+always @(posedge clk)
+  begin
+    if(is_play_end_i == 1'b1 && is_play_lock == 1'b0)
+      begin
+        is_play_lock = 1'b1;
+      end
+  end
 
 // ÷∏¡ÓΩ‚Œˆ
 wire[5:0] op = inst_i[31:26];
@@ -225,7 +245,7 @@ always @(*)
           if (reg_rdata1_i == reg_rdata2_i)
             begin
               branch_flag_o <= `True;
-              branch_target_o <= pc_i + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
+              branch_target_o <= pc_i + 4 + {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
             end
         end
       `OP_ADDI:
@@ -296,6 +316,10 @@ always @(*)
                     branch_flag_o <= `True;
                     branch_target_o <= pc_i;
                   end
+                else
+                  begin
+                    is_finish_lock = 1'b0;
+                  end
               end
             `IO_uart_open:
               begin
@@ -311,10 +335,14 @@ always @(*)
               end
             `IO_music_player_over:
               begin
-                if(is_play_end_i == 1'b0)
+                if(is_play_lock == 1'b0)
                   begin
                     branch_flag_o <= `True;
                     branch_target_o <= pc_i;
+                  end
+                else
+                  begin
+                    is_play_lock = 1'b0;
                   end
               end
             `IO_music_close:

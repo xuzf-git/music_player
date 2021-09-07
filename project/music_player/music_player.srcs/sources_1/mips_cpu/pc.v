@@ -59,15 +59,14 @@ always @(posedge clk)
       end
     else if(trans_switch_i == 1'b1)
       begin
-        pc_reg <= 32'h00000001; //TODO 传输指令区首地址 
+        pc_reg <= 32'h00000030; //TODO 传输指令区首地址 
       end
     else if(music_switch_i == 1'b1)
       begin 
-        pc_reg <= 32'h00000001; //TODO 播放指令区首地址
+        pc_reg <= 32'h00000030; //TODO 播放指令区首地址
       end
     else if (stop_i[0] == 1'b1)
       begin
-        pc_reg <= branch_target_i;
       end
     else if (branch_flag_i == `True)
       begin
