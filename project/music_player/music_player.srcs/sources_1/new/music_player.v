@@ -43,7 +43,7 @@ wire uart_data_recv_end;
 
 pipeline pipeline0(
        .clk(clk),
-       .rst(rst),
+       .rst(~rst),
 
        .uart_data_recv_end_o(uart_data_recv_end),
 
@@ -62,7 +62,7 @@ pipeline pipeline0(
 
 uart_interface uart0(
        .clk(clk),
-       .rst_n(~rst),
+       .rst_n(rst),
        
        .uart_ce_i(uart_ce),                     // uart interface enable
        .uart_out_en_i(uart_data_recv_end),      // cpu already get last data

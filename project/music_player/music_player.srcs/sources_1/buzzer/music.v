@@ -1,36 +1,3 @@
-// `timescale 1ns / 1ps
-// module music (
-//          input wire clk,
-//          input wire rst,
-//          input wire music_ce_i,
-//          input wire[31:0] music_freq_i,
-//          input wire[31:0] music_timer_i,
-
-//          output wire is_play_end_o,
-//          output wire buzzer_out
-//        );
-
-// reg t=0;
-// reg[10:0] cnt = 0;
-
-// assign is_play_end_o = t;
-
-// always @(posedge clk)
-//   begin
-//     if(cnt == 10)
-//       begin
-//         t=~t;
-//         cnt = 0;
-//       end
-//     else
-//       begin
-//           cnt= cnt+1;
-//       end
-//   end
-
-
-// endmodule
-
 `timescale 1ns / 1ps
 module music(
          input wire clk,
@@ -47,6 +14,7 @@ reg this_over;    //0或1 蜂鸣器播放完毕信号
 reg [31:0] cnt;
 reg [31:0] play_time=0;
 reg [31:0] fre = 0;
+reg [31:0] time_reg = 1;
 
 
 always@(posedge clk)
@@ -57,21 +25,29 @@ always@(posedge clk)
         this_over <= 0;
         cnt <= 1;
         fre <= music_freq_i;                 //频率（方波半周期时长）
-        play_time <= music_timer_i;
       end
+     if(time_reg != music_timer_i)
+     begin
+        time_reg <= music_timer_i;
+        play_time = music_timer_i;
+     end
     if (~rst)
       begin
+       time_reg <= 1;
         clk_10000 <= 0;
         cnt <= 1;
+        play_time <= 0;
+        fre <= 0;
       end
-    else    
+    else if (music_ce_i == 1)  
       begin
-        if(play_time == 0)       //播放时间用完
+        if(play_time == 1)       //播放时间用完
           begin
             this_over <= 1;      //修改蜂鸣器播放完毕信号
           end
         else  //else 继续播放此频率的方波
           begin
+            this_over <= 0;
             play_time <= (play_time-1);  //播放时间减去一个clk
             if (cnt == fre)
               begin

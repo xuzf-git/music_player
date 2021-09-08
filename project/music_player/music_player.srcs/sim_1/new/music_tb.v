@@ -34,19 +34,19 @@ parameter PERIOD = 10;
 initial
   begin
     clk = 1'b0;
-    rst = 1'b1;
+    rst = 1'b0;
     trans_switch = 1'b0;
     music_switch = 1'b0;
     #20;
-    rst = 1'b0;
+    rst = 1'b1;
     #15000
     trans_switch = 1'b1;
     #20
     trans_switch = 1'b0;
-    // #30000;
-    // music_switch = 1'b1;
-    // #20;
-    // music_switch = 1'b0;
+     #15000000;
+     music_switch = 1'b1;
+     #20;
+     music_switch = 1'b0;
   end
 
 always
@@ -63,7 +63,7 @@ wire rx_clk_bps;
 // 调用波特率生成模块，用于仿真发送波特率（这里也可以调用tx_band_gen模块，功能一样）
 rx_band_gen rx_band_gen( 
     .clk( clk ),
-    .rst( rst ),
+    .rst( ~rst ),
     .band_sig( 1'b1 ),  // 始终有效
     .clk_bps( rx_clk_bps )
 );
@@ -74,65 +74,30 @@ begin
     #300
     // 发送一帧数据：32'h55555555, 32'h5f5f5f5f 根据生成的波特率发送数据，并且从最低位开始发送。
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;        
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;        
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
@@ -143,41 +108,76 @@ begin
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
-    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+    
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
+//    @( posedge rx_clk_bps ) rx_pin_in = 1'b1;
     
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
     @( posedge rx_clk_bps ) rx_pin_in = 1'b0;
