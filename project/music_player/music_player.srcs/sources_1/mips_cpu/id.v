@@ -83,25 +83,6 @@ reg reg_music_ce_o = 0;
 assign uart_ce_o = reg_uart_ce_o;
 assign music_ce_o = reg_music_ce_o;
 
-//reg is_finish_lock = 0;
-//reg is_play_lock = 0;
-
-//always @(posedge clk)
-//  begin
-//    if(uart_finish_i == 1'b1 && is_finish_lock == 1'b0)
-//      begin
-//        is_finish_lock = 1'b1;
-//      end
-//  end
-
-//always @(posedge clk)
-//  begin
-//    if(is_play_end_i == 1'b1 && is_play_lock == 1'b0)
-//      begin
-//        is_play_lock = 1'b1;
-//      end
-//  end
-
 // ÷∏¡ÓΩ‚Œˆ
 wire[5:0] op = inst_i[31:26];
 wire[4:0] opnd_rs = inst_i[25:21];      // I or R
@@ -318,10 +299,6 @@ always @(*)
                     branch_flag_o <= `True;
                     branch_target_o <= pc_i;
                   end
-//                else
-//                  begin
-//                    is_finish_lock = 1'b0;
-//                  end
               end
             `IO_uart_open:
               begin
@@ -338,15 +315,11 @@ always @(*)
               end
             `IO_music_player_over:
               begin
-//                if(is_play_lock == 1'b0)
-//                  begin
-//                    branch_flag_o <= `True;
-//                    branch_target_o <= pc_i;
-//                  end
-//                else
-//                  begin
-//                    is_play_lock = 1'b0;
-//                  end
+                if(is_play_end_i == 1'b0)
+                  begin
+                    branch_flag_o <= `True;
+                    branch_target_o <= pc_i;
+                  end
               end
             `IO_music_close:
               begin
