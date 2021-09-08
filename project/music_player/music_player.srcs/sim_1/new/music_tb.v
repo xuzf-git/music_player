@@ -39,7 +39,7 @@ initial
     music_switch = 1'b0;
     #20;
     rst = 1'b0;
-    #15000000
+    #15000
     trans_switch = 1'b1;
     #20
     trans_switch = 1'b0;
