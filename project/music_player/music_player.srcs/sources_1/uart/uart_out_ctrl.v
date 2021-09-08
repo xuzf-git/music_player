@@ -30,7 +30,7 @@ module uart_out_ctrl(
     output reg[31:0] rx_out_data
     );
     
-    always @( posedge clk or posedge rst )
+    always @( posedge clk )
         if (read_sig == 1'b1) begin
             uart_out_ready_o <= 1'b1;
         end else begin

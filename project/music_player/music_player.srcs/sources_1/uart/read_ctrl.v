@@ -33,12 +33,12 @@ module read_ctrl(
     
     reg uart_out_en;
     
-    always @( posedge clk or posedge rst )
+    always @( posedge clk)
         if (uart_out_en_i == 1'b1) begin
             uart_out_en <= 1'b1;
         end
     
-    always @( posedge clk or posedge rst )
+    always @( posedge clk )
         if ( (uart_out_en == 1'b1) && (rx_buf_not_empty_i == 1'b1) ) begin
             read_sig <= 1'b1;
             uart_out_en <= 1'b0;
