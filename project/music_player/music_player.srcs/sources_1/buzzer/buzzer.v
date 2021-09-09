@@ -3,6 +3,7 @@ module buzzer(
          input wire clk,
          input wire rst,
          input wire [31:0]frequnce,
+         input wire music_ce_i,
          output buzzer_out
        );
 
@@ -15,11 +16,10 @@ always@(posedge clk or negedge rst)
   begin
     if(fre != frequnce)
       begin
-        clk_10000 <= 0;
         cnt <= 1;
         fre <= frequnce;
       end
-    if (~rst)
+    if ((~rst) || (!music_ce_i))
       begin
         clk_10000 <= 0;
         cnt <= 1;

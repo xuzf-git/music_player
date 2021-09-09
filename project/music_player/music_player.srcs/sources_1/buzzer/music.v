@@ -9,60 +9,19 @@ module music(
          output  buzzer_out                 // 蜂鸣器工作信号
        );
 
-reg clk_10000;    //0或1 发出特定频率方波 工作信号
-reg this_over;    //0或1 蜂鸣器播放完毕信号
-reg [31:0] cnt;
-reg [31:0] play_time=0;
-reg [31:0] fre = 0;
-reg [31:0] time_reg = 1;
+buzzer buzzer0(
+         .clk(clk),
+         .rst(rst),
+         .buzzer_out(buzzer_out),
+         .frequnce(music_freq_i),
+         .music_ce_i(music_ce_i)
+       );
 
-
-always@(posedge clk)
-  begin
-    if(fre != music_freq_i)   //CPU传来了最新的(time, frequency)
-      begin
-        clk_10000 <= 0;
-        this_over <= 0;
-        cnt <= 1;
-        fre <= music_freq_i;                 //频率（方波半周期时长）
-      end
-     if(time_reg != music_timer_i)
-     begin
-        time_reg <= music_timer_i;
-        play_time = music_timer_i;
-     end
-    if (~rst)
-      begin
-       time_reg <= 1;
-        clk_10000 <= 0;
-        cnt <= 1;
-        play_time <= 0;
-        fre <= 0;
-      end
-    else if (music_ce_i == 1)  
-      begin
-        if(play_time == 1)       //播放时间用完
-          begin
-            this_over <= 1;      //修改蜂鸣器播放完毕信号
-          end
-        else  //else 继续播放此频率的方波
-          begin
-            this_over <= 0;
-            play_time <= (play_time-1);  //播放时间减去一个clk
-            if (cnt == fre)
-              begin
-                clk_10000 <= ~clk_10000;
-                cnt <= 0;
-              end
-            else
-              begin
-                cnt<=cnt+1;
-              end
-          end
-      end
-  end
-
-assign  is_play_end_o =this_over;   // 播放完毕信号
-assign  buzzer_out =clk_10000;      // 工作信号
+timer timer0(
+        .clk(clk),
+        .rst(rst),
+        .last_time(music_timer_i),
+        .time_out(is_play_end_o)
+      );
 
 endmodule
