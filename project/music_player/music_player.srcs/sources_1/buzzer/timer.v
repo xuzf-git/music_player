@@ -6,7 +6,7 @@ module timer (
          output reg time_out
        );
 
-reg[31:0] time_reg = 1;
+reg[31:0] time_reg = 0;
 reg[31:0] cnt;
 
 always @(posedge clk)
@@ -14,7 +14,7 @@ always @(posedge clk)
 
     if(~rst)
       begin
-        time_reg <= 1;
+        time_reg <= 0;
         time_out <= 0;
         cnt <= 32'hffffffff;
       end

@@ -43,7 +43,7 @@ module mips_cpu(
          input wire uart_finish_i,
 
          output wire uart_ce_o,
-         input wire music_ce_o,
+         output wire music_ce_o,
 
          input  wire[31:0]           uart_data_i,
          output  wire[31:0]           music_freq_o,

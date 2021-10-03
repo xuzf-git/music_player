@@ -13,4 +13,3 @@ project/**/music_player.runs/
 *.jou
 *.str
 **/ip/*
-*.xpr
