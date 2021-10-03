@@ -6,7 +6,7 @@
 
 架构图如下所示：
 
-![image-20211003194531073](C:\Users\xuzf\AppData\Roaming\Typora\typora-user-images\image-20211003194531073.png)
+![image-20211003194531073.png](https://i.loli.net/2021/10/03/PiI6Dr7UcRJqtEb.png)
 
 最终的 **I/O方案** 包括通信和播放两个模块，一个控制中心CPU
 
